@@ -10,6 +10,6 @@ namespace StudentsApi.Repository
         public void CreateStudent(Student student);
         public bool UpdateStudent(int id, Student student);
 
-        //TODO: Delete Student
+        bool DeleteStudent(int id)
     }
 }

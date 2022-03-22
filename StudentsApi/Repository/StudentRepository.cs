@@ -68,5 +68,19 @@ namespace StudentsApi.Repository
         }
 
         //TODO: Delete Student
+
+        public bool DeleteStudent(int id)
+        {
+            var studentFromDb = _studentDbContext.Students.Where(x => x.Id == id).FirstOrDefault();
+
+            if (studentFromDb == null)
+            {
+                return false;
+            }
+
+            _studentDbContext.Students.Remove(studentFromDb);
+            _studentDbContext.SaveChanges();
+            return true;
+        }
     }
 }

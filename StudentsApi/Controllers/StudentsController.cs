@@ -22,7 +22,7 @@ namespace StudentsApi.Controllers
         {
             if (!page.HasValue || page == 0)
                 page = 1;
-            // TODO: firstName filter
+
             return _studentRepository.GetStudents(page.Value, firstName);
         }
 
@@ -59,6 +59,18 @@ namespace StudentsApi.Controllers
             return Ok();
         }
 
-        // TODO: [HttpDelete("{id}")]
+        [HttpDelete("{id}")]
+        public ActionResult DeleteStudent([FromRoute] int id)
+        {
+            var result = _studentRepository.DeleteStudent(id);
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
     }
 }
