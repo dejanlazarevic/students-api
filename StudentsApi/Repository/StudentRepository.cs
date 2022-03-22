@@ -33,7 +33,13 @@ namespace StudentsApi.Repository
 
             var pageCount = Math.Ceiling(students.Count / defaultPageSize);
 
-            var studentsPaged = _studentDbContext.Students.Skip((page - 1) * (int)defaultPageSize).Take((int)defaultPageSize).ToList();
+            if (!string.IsNullOrEmpty(firstName) && students.Count > 0)
+            {
+                students = students.Where(x => x.FirstName == firstName).ToList();
+                pageCount = Math.Ceiling(students.Count / defaultPageSize);
+            }
+
+            var studentsPaged = students.Skip((page - 1) * (int)defaultPageSize).Take((int)defaultPageSize).ToList();
 
             StudentResponse studentResponse = new StudentResponse
             {
