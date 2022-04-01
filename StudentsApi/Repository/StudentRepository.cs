@@ -1,5 +1,7 @@
-﻿using StudentsApi.Database;
+﻿using AutoMapper;
+using StudentsApi.Database;
 using StudentsApi.Models;
+using StudentsApi.Models.Command;
 using StudentsApi.Models.Response;
 
 namespace StudentsApi.Repository
@@ -7,15 +9,19 @@ namespace StudentsApi.Repository
     public class StudentRepository : IStudentRepository
     {
         private readonly StudentDbContext _studentDbContext;
+        private readonly IMapper _mapper;
 
-        public StudentRepository(StudentDbContext studentDbContext)
+        public StudentRepository(StudentDbContext studentDbContext, IMapper mapper)
         {
             _studentDbContext = studentDbContext;
+            _mapper = mapper;
         }
 
 
-        public void CreateStudent(Student student)
+        public void CreateStudent(StudentCommand _student)
         {
+            var student = _mapper.Map<Student>(_student);
+
             _studentDbContext.Students.Add(student);
             _studentDbContext.SaveChanges();
         }

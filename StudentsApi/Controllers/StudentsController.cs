@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentsApi.Models;
 using StudentsApi.Models.Response;
+using StudentsApi.Models.Command;
 using StudentsApi.Repository;
 
 namespace StudentsApi.Controllers
@@ -27,7 +28,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateStudent([FromBody] Student student)
+        public ActionResult CreateStudent([FromBody] StudentCommand student)
         {
             _studentRepository.CreateStudent(student);
             return Ok();
